@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>업무 말투 변환기 | Business Tone Converter</title>
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style type="text/tailwindcss">
+        @theme {
+            --font-pretendard: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+        }
+        
+        body {
+            font-family: var(--font-pretendard);
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 md:p-10">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-blue-600 mb-3 tracking-tight">업무 말투 변환기</h1>
+            <p class="text-slate-500 font-medium">전달하고 싶은 내용을 상황에 맞는 완벽한 업무용 말투로 바꿔보세요.</p>
+        </header>
+
+        <main class="space-y-8">
+            <!-- 원문 입력 섹션 -->
+            <section>
+                <label for="inputText" class="block text-sm font-bold text-slate-700 mb-2">원문 입력</label>
+                <textarea id="inputText" 
+                    class="w-full h-32 p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all resize-none text-slate-800 placeholder:text-slate-400"
+                    placeholder="변환하고 싶은 내용을 자유롭게 입력하세요. (예: 아까 말한 보고서 다 됐음. 확인 바람)"></textarea>
+            </section>
+
+            <!-- 수신 대상 선택 섹션 -->
+            <section>
+                <span class="block text-sm font-bold text-slate-700 mb-3">수신 대상 선택</span>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    <button type="button" class="target-btn px-4 py-3 text-sm font-semibold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer" data-target="boss">상사 / 임원</button>
+                    <button type="button" class="target-btn px-4 py-3 text-sm font-semibold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer" data-target="colleague">타팀 동료</button>
+                    <button type="button" class="target-btn px-4 py-3 text-sm font-semibold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer" data-target="client">고객 / 외부</button>
+                    <button type="button" class="target-btn px-4 py-3 text-sm font-semibold rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-all cursor-pointer" data-target="team">팀 내 동료</button>
+                </div>
+            </section>
+
+            <!-- 변환 버튼 -->
+            <div class="pt-2">
+                <button id="convertBtn" 
+                    class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
+                    AI 말투 변환하기
+                </button>
+            </div>
+
+            <!-- 결과 출력 섹션 -->
+            <section id="resultSection" class="hidden animate-in fade-in slide-in-from-top-4 duration-500">
+                <div class="relative pt-6 border-t border-dashed border-slate-200 mt-6">
+                    <label for="outputText" class="block text-sm font-bold text-slate-700 mb-2">AI 변환 결과</label>
+                    <div class="relative group">
+                        <textarea id="outputText" readonly
+                            class="w-full h-48 p-4 bg-blue-50/50 border border-blue-100 rounded-xl text-slate-800 leading-relaxed resize-none focus:outline-none"></textarea>
+                        <button id="copyBtn" 
+                            class="absolute bottom-4 right-4 px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-lg transition-all shadow-md active:scale-95">
+                            복사하기
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 로딩 오버레이 -->
+        <div id="loadingOverlay" class="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center hidden">
+            <div class="loader mb-4"></div>
+            <p class="text-slate-600 font-bold">AI가 말투를 정중하게 다듬는 중...</p>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

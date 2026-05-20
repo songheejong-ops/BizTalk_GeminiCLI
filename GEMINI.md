@@ -85,8 +85,8 @@ uvicorn main:app --reload --port 8000
 
 ## 📝 TODO (주요 구현 단계)
 
-- [ ] STEP 1: 프로젝트 디렉토리 구조 생성 및 환경 설정.
-- [ ] STEP 2: FastAPI 백엔드 엔드포인트 및 AI 변환 로직 구현.
+- [x] STEP 1: 프로젝트 디렉토리 구조 생성 및 환경 설정.
+- [x] STEP 2: FastAPI 백엔드 엔드포인트 및 AI 변환 로직 구현 완료.
 - [ ] STEP 3: Vanilla JS 프론트엔드 화면 구성 및 API 연동.
 - [ ] STEP 4: Vercel 배포 및 최종 동작 확인.
 
